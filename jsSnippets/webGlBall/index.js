@@ -236,10 +236,12 @@ class ThreeScene {
             child.material.uniforms.u_color.value = colorPool[n]
 
 
-            // if (soundReactor.audio == undefined)
-            //     return
-            // child.material.uniforms.u_nDet.value += soundReactor.fdata[10] * GUIObj.lowFreqIntensity
-            // child.material.uniforms.u_nRoof.value += soundReactor.fdata[500] * GUIObj.highFreqIntensity
+            if (soundReactor == undefined)
+                return
+            if (soundReactor.audio == undefined)
+                return
+            child.material.uniforms.u_nDet.value += soundReactor.fdata[10] * GUIObj.lowFreqIntensity
+            child.material.uniforms.u_nRoof.value += soundReactor.fdata[500] * GUIObj.highFreqIntensity
         });
 
         if (this.camController != undefined) {
