@@ -1,3 +1,4 @@
+//test now 
 class CameraController {
     constructor(camera) {
         this.bind()
