@@ -115,7 +115,7 @@ class ThreeScene {
         this.camera.position.set(0, 0, 7)
         // var controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
 
-        // this.camController = new CameraController(this.camera)
+        this.camController = new CameraController(this.camera)
 
 
         let light = new THREE.AmbientLight()
@@ -210,8 +210,6 @@ class ThreeScene {
 
 
 
-        let cube = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshNormalMaterial())
-        this.scene.add(cube)
 
         window.addEventListener("resize", this.resizeCanvas)
         RAF.subscribe('threeSceneUpdate', this.update)
