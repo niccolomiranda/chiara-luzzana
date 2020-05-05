@@ -204,7 +204,6 @@ class ThreeScene {
             child.material.uniforms.u_color.value = colorPool[n]
 
 
-            console.log(soundReactor)
             if (soundReactor.audio == undefined)
                 return
             child.material.uniforms.u_nDet.value = GUIObj.noiseDetail + soundReactor.fdata[500] * GUIObj.highFreqIntensity
