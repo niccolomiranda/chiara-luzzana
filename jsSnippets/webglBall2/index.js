@@ -1,3 +1,8 @@
+console.log("hello and welcome ! :)")
+console.log("hello and welcome ! :)")
+console.log("hello and welcome ! :)")
+console.log("hello and welcome ! :)")
+
 class CameraController {
     constructor(camera) {
         this.bind()
@@ -67,31 +72,6 @@ const GUIObj = {
     lowFreqIntensity: 0.003,
     colorChangingFrequency: 0.01,
 }
-
-// var GUI = new dat.gui.GUI();
-// var noiseFolder = GUI.addFolder('Noise');
-// var lightFolder = GUI.addFolder('Light');
-// var cameraFolder = GUI.addFolder('Camera');
-// var soundFolder = GUI.addFolder('Sound');
-// GUI.add(GUIObj, 'SLICE_NUMBER').onChange((value) => {
-//     window.localStorage.setItem('SLICE_NUMBER', value)
-//     console.log(window.localStorage.getItem('SLICE_NUMBER'))
-// });
-// GUI.add(GUIObj, 'colorChangingFrequency').min(0.01).max(1).step(0.01);
-// GUI.add(GUIObj, 'sliceThickness').min(0.01).max(2).step(0.01);
-// noiseFolder.add(GUIObj, 'noiseOffset').min(0).max(0.05).step(0.0001);
-// noiseFolder.add(GUIObj, 'noiseSpeed').min(0.001).max(10);
-// noiseFolder.add(GUIObj, 'noiseDetail').min(0.001).max(100);
-// noiseFolder.add(GUIObj, 'noiseRoof').min(1.).max(10);
-// noiseFolder.add(GUIObj, 'noiseDepth').min(0).max(1);
-// noiseFolder.add(GUIObj, 'noiseShadow').min(-2).max(0).step(0.01);
-// lightFolder.add(GUIObj, 'matCap').min(0).max(matCapsUrls.length - 1).step(1);
-// lightFolder.add(GUIObj, 'lightIntensity').min(0).max(3).step(0.01);
-// lightFolder.add(GUIObj, 'lightAmbient').min(0).max(2).step(0.01);
-// cameraFolder.add(GUIObj, 'camSpeed').min(0).max(.4).step(0.01);
-// cameraFolder.add(GUIObj, 'camSensitivity').min(0.001).max(0.02).step(0.0001);
-// soundFolder.add(GUIObj, 'highFreqIntensity').min(0.0).max(0.01).step(0.0001);
-// soundFolder.add(GUIObj, 'lowFreqIntensity').min(0.0).max(0.01).step(0.0001);
 
 class ThreeScene {
     constructor() {
