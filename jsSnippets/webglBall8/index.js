@@ -57,8 +57,8 @@ const GUIObj = {
     lightAmbient: 0,
     camSpeed: .05,
     camSensitivity: 0.002,
-    highFreqIntensity: 0.003,
-    lowFreqIntensity: 0.003,
+    highFreqIntensity: 0.0001,
+    lowFreqIntensity: 0.005,
     colorChangingFrequency: 0.01,
 }
 
@@ -207,8 +207,8 @@ class ThreeScene {
             console.log(soundReactor)
             if (soundReactor.audio == undefined)
                 return
-            child.material.uniforms.u_nDet.value += soundReactor.fdata[10] * GUIObj.lowFreqIntensity
-            child.material.uniforms.u_nRoof.value += soundReactor.fdata[500] * GUIObj.highFreqIntensity
+            child.material.uniforms.u_nDet.value = GUIObj.noiseDetail + soundReactor.fdata[500] * GUIObj.highFreqIntensity
+            child.material.uniforms.u_nRoof.value = GUIObj.noiseRoof - soundReactor.fdata[10] * GUIObj.lowFreqIntensity
         });
 
         if (this.camController != undefined) {
