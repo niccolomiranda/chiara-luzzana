@@ -1,7 +1,4 @@
 console.log("hello and welcome ! :)")
-console.log("hello and welcome ! :)")
-console.log("hello and welcome ! :)")
-console.log("hello and welcome ! :)")
 
 class CameraController {
     constructor(camera) {
