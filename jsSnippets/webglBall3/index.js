@@ -1,3 +1,5 @@
+console.log("hello and welcome ! :)")
+
 class CameraController {
     constructor(camera) {
         this.bind()
@@ -30,9 +32,13 @@ class CameraController {
 const webglHolder = document.querySelector('.webglholder')
 const SLICE_NUMBER = window.localStorage.getItem('SLICE_NUMBER') || 50;
 var simplex = new SimplexNoise();
+console.log(simplex)
 
 const matCapsUrls = [
     'https://cdn.jsdelivr.net/gh/niccolomiranda/chiara-luzzana@72fab3c/sphere/matCap0.jpg',
+    'https://cdn.jsdelivr.net/gh/niccolomiranda/chiara-luzzana@72fab3c/sphere/matCap1.jpg',
+    'https://cdn.jsdelivr.net/gh/niccolomiranda/chiara-luzzana@72fab3c/sphere/matCap2.jpg',
+    'https://cdn.jsdelivr.net/gh/niccolomiranda/chiara-luzzana@72fab3c/sphere/matCap3.jpg',
 ]
 let matCaps = []
 let loader = new THREE.TextureLoader()
@@ -42,6 +48,8 @@ matCapsUrls.forEach(url => {
 
 let colorPool = [
     new THREE.Color(0xFFF4F0),
+    new THREE.Color(0xD4CCC7),
+    new THREE.Color(0xA4868C),
 ]
 const GUIObj = {
     SLICE_NUMBER: SLICE_NUMBER,
@@ -103,12 +111,14 @@ class ThreeScene {
         this.sliceGeom = new THREE.Group()
 
         fbxLoader.load('https://cdn.jsdelivr.net/gh/niccolomiranda/chiara-luzzana@72fab3c/sphere/slice.fbx', obj => {
+            console.log(obj)
 
             let inc = 0;
             for (let i = -sphereRad; i <= sphereRad; i += sphereRad * 2 / SLICE_NUMBER) {
 
                 let n = (simplex.noise2D(inc * 0.1, 1) + 1) / 2 * (colorPool.length - 1);
                 n = Math.round(n)
+                console.log(n)
                 let uniforms = {
                     u_tex: {
                         value: this.testTex
