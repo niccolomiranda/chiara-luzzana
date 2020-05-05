@@ -153,20 +153,23 @@ class ThreeScene {
 
                 let r = Math.sqrt(2 * sphereRad * (i + sphereRad) - Math.pow(i + sphereRad, 2))
 
-                let cyl = obj.children[0].clone()
-                cyl.material = new THREE.ShaderMaterial({
-                    vertexShader: vertexShader(),
-                    fragmentShader: fragmentShader(),
-                    uniforms: uniforms,
-                    transparent: true
-                })
+                if (r > 0) {
 
-                this.initZScale = cyl.scale.z
-                cyl.position.y = i
-                cyl.scale.x *= r
-                cyl.scale.y *= r
-                cyl.scale.z = this.initZScale * GUIObj.sliceThickness
-                this.sliceGeom.add(cyl)
+                    let cyl = obj.children[0].clone()
+                    cyl.material = new THREE.ShaderMaterial({
+                        vertexShader: vertexShader(),
+                        fragmentShader: fragmentShader(),
+                        uniforms: uniforms,
+                        transparent: true
+                    })
+
+                    this.initZScale = cyl.scale.z
+                    cyl.position.y = i
+                    cyl.scale.x *= r
+                    cyl.scale.y *= r
+                    cyl.scale.z = this.initZScale * GUIObj.sliceThickness
+                    this.sliceGeom.add(cyl)
+                }
                 inc++
             }
 
