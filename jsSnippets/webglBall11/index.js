@@ -77,6 +77,7 @@ class ThreeScene {
         this.renderer.setSize(window.innerWidth, window.innerHeight)
         this.renderer.debug.checkShaderErrors = true
         webglHolder.appendChild(this.renderer.domElement)
+        let soundActor = 0.2
 
         this.scene = new THREE.Scene()
 
@@ -191,7 +192,7 @@ class ThreeScene {
             n = Math.round(n)
 
             child.scale.z = this.initZScale * GUIObj.sliceThickness
-            child.material.uniforms.u_nSpeed.value += (RAF.dt * 0.0001) * GUIObj.noiseSpeed
+            child.material.uniforms.u_nSpeed.value += (RAF.dt * 0.0001) * GUIObj.noiseSpeed * soundActor
             child.material.uniforms.u_nDet.value = GUIObj.noiseDetail
             child.material.uniforms.u_nRoof.value = GUIObj.noiseRoof
             child.material.uniforms.u_nDepth.value = GUIObj.noiseDepth
@@ -208,6 +209,14 @@ class ThreeScene {
                 return
             child.material.uniforms.u_nDet.value = GUIObj.noiseDetail + soundReactor.fdata[500] * GUIObj.highFreqIntensity
             child.material.uniforms.u_nRoof.value = GUIObj.noiseRoof - soundReactor.fdata[10] * GUIObj.lowFreqIntensity
+            if (soundReactor.audio > 0 && !myAudio.paused) {
+
+                soundActor = 1
+
+            }
+            else {
+                soundActor = 0.2
+            }
         });
 
         if (this.camController != undefined) {
