@@ -30,6 +30,7 @@ class CameraController {
 const webglHolder = document.querySelector('.webglholder')
 const SLICE_NUMBER = window.localStorage.getItem('SLICE_NUMBER') || 50;
 var simplex = new SimplexNoise();
+let soundActor = 0.2
 
 const matCapsUrls = [
     'https://cdn.jsdelivr.net/gh/niccolomiranda/chiara-luzzana@72fab3c/sphere/matCap0.jpg',
@@ -77,7 +78,6 @@ class ThreeScene {
         this.renderer.setSize(window.innerWidth, window.innerHeight)
         this.renderer.debug.checkShaderErrors = true
         webglHolder.appendChild(this.renderer.domElement)
-        let soundActor = 0.2
 
         this.scene = new THREE.Scene()
 
