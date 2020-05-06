@@ -178,6 +178,8 @@ class ThreeScene {
             this.sliceGeom.rotation.y = -0.8
             this.scene.add(this.sliceGeom)
         })
+        if (window.isMobile)
+            this.sliceGeom.scale.set(0.8, 0.8, 0.8)
 
 
         window.addEventListener("resize", this.resizeCanvas)
