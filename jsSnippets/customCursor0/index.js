@@ -119,8 +119,8 @@ class CustomCursor {
     }
 
     resizeCanvas() {
-        this.width = this.ctx.canvas.this.width = window.innerWidth * this.dpi
-        this.height = this.ctx.canvas.this.height = window.innerHeight * this.dpi
+        this.width = this.ctx.canvas.width = window.innerWidth * this.dpi
+        this.height = this.ctx.canvas.height = window.innerHeight * this.dpi
     }
 
     bind() {
