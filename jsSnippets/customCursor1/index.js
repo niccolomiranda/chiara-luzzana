@@ -95,10 +95,7 @@ class CustomCursor {
 
     aIn() {
         TweenLite.to(this.cursParameters, this.cursParameters.sliderInTime, {
-            aInnerCircleSize: 2 * this.dpi,
-        })
-        TweenLite.to(this.cursParameters, this.cursParameters.sliderInTime, {
-            circleSize: 35 * this.dpi,
+            circleSize: 0,
         })
     }
     aOut() {
