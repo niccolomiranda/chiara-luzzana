@@ -15,7 +15,11 @@ class CustomCursor {
             arrowOppenes: 10 * this.dpi,
             aInnerCircleSize: 0,
             linkTime: 0.1,
+            imgArrowScale: 0
         }
+
+        this.arrowImg = document.querySelector('.arrowsvg')
+        console.log(this.arrowImg)
 
         this.cursCont = container
         this.cursCanvas = document.createElement('canvas')
@@ -38,6 +42,7 @@ class CustomCursor {
         this.ctx.clearRect(0, 0, this.width, this.height)
         this.drawSlider()
         this.drawCursor()
+        this.drawNextProj()
         this.drawLink()
 
     }
@@ -93,6 +98,16 @@ class CustomCursor {
         this.ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
 
+
+    drawNextProj() {
+        this.ctx.translate(this.targetPos[0], this.targetPos[1])
+        let aspect = this.arrowImg.height / this.arrowImg.width
+        let w = 60 * this.dpi
+        this.ctx.scale(this.cursParameters.imgArrowScale, this.cursParameters.imgArrowScale)
+        this.ctx.drawImage(this.arrowImg, -w / 2, -w / 2 * aspect, w, w * aspect)
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+    }
     aIn() {
         TweenLite.to(this.cursParameters, this.cursParameters.sliderInTime, {
             circleSize: 0,
@@ -104,6 +119,21 @@ class CustomCursor {
         })
         TweenLite.to(this.cursParameters, this.cursParameters.sliderInTime, {
             circleSize: 26 * this.dpi,
+        })
+    }
+    nextProjIn() {
+        TweenLite.to(this.cursParameters, this.cursParameters.sliderInTime, {
+            imgArrowScale: 1,
+            circleSize: 60 * this.dpi
+
+        })
+
+    }
+
+    nextProjOut() {
+        TweenLite.to(this.cursParameters, this.cursParameters.sliderInTime, {
+            imgArrowScale: 0,
+            circleSize: 26 * this.dpi
         })
     }
 
@@ -127,6 +157,9 @@ class CustomCursor {
         this.mouseMove = this.mouseMove.bind(this)
         this.aIn = this.aIn.bind(this)
         this.aOut = this.aOut.bind(this)
+        this.nextProjIn = this.nextProjIn.bind(this)
+        this.nextProjOut = this.nextProjOut.bind(this)
+        this.drawNextProj = this.drawNextProj.bind(this)
 
         window.addEventListener('resize', this.resizeCanvas)
         window.addEventListener('mousemove', this.mouseMove)
