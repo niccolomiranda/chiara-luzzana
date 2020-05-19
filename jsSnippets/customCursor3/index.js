@@ -19,7 +19,6 @@ class CustomCursor {
         }
 
         this.arrowImg = document.querySelector('.arrowsvg')
-        console.log(this.arrowImg)
 
         this.cursCont = container
         this.cursCanvas = document.createElement('canvas')
@@ -42,9 +41,10 @@ class CustomCursor {
         this.ctx.clearRect(0, 0, this.width, this.height)
         this.drawSlider()
         this.drawCursor()
-        this.drawNextProj()
         this.drawLink()
 
+        if (this.arrowImg != undefined)
+            this.drawNextProj()
     }
     drawCursor() {
         this.ctx.beginPath()
