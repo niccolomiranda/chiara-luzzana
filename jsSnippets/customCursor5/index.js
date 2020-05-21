@@ -21,7 +21,7 @@ class CustomCursor {
         }
 
         this.arrowImg = document.querySelector('.arrowsvg')
-        this.playImg = document.querySelector('.playSvg')
+        this.playImg = document.querySelector('.playsvg')
 
         this.cursCont = container
         this.cursCanvas = document.createElement('canvas')
