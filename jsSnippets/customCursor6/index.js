@@ -20,6 +20,7 @@ class CustomCursor {
             playerBgRad: 52 * this.dpi
         }
 
+
         this.arrowImg = document.querySelector('.arrowsvg')
         this.playImg = document.querySelector('.playsvg')
 
