@@ -20,7 +20,6 @@ class CustomCursor {
             playerBgRad: 52 * this.dpi
         }
 
-
         this.arrowImg = document.querySelector('.arrowsvg')
         this.playImg = document.querySelector('.playsvg')
 
@@ -113,6 +112,7 @@ class CustomCursor {
 
     }
     drawPlayer() {
+        console.log('hey')
         this.ctx.translate(this.targetPos[0], this.targetPos[1])
         let aspect = this.playImg.height / this.playImg.width
         let w = 50 * this.dpi
@@ -181,6 +181,19 @@ class CustomCursor {
         this.height = this.ctx.canvas.height = window.innerHeight * this.dpi
     }
 
+    mouseLeft() {
+        TweenLite.to(this.cursParameters, .3, {
+            circleSize: 0,
+            playImgScale: 0
+        })
+    }
+
+    mouseEntered() {
+        TweenLite.to(this.cursParameters, .3, {
+            circleSize: 26 * this.dpi,
+        })
+    }
+
     bind() {
         this.customCursorInit = this.customCursorInit.bind(this)
         this.update = this.update.bind(this)
@@ -193,8 +206,13 @@ class CustomCursor {
         this.drawNextProj = this.drawNextProj.bind(this)
         this.vidPlayerIn = this.vidPlayerIn.bind(this)
         this.vidPlayerOut = this.vidPlayerOut.bind(this)
+        this.mouseLeft = this.mouseLeft.bind(this)
+        this.mouseEntered = this.mouseEntered.bind(this)
 
         window.addEventListener('resize', this.resizeCanvas)
         window.addEventListener('mousemove', this.mouseMove)
+        document.addEventListener('mouseleave', this.mouseLeft)
+        document.addEventListener('mouseenter', this.mouseEntered)
+
     }
 }
