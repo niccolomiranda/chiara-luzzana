@@ -15,10 +15,13 @@ class CustomCursor {
             arrowOppenes: 10 * this.dpi,
             aInnerCircleSize: 0,
             linkTime: 0.1,
-            imgArrowScale: 0
+            imgArrowScale: 0,
+            playImgScale: 0,
+            playerBgRad: 52 * this.dpi
         }
 
         this.arrowImg = document.querySelector('.arrowsvg')
+        this.playImg = document.querySelector('.playSvg')
 
         this.cursCont = container
         this.cursCanvas = document.createElement('canvas')
@@ -45,6 +48,8 @@ class CustomCursor {
 
         if (this.arrowImg != undefined)
             this.drawNextProj()
+        if (this.playImg != undefined)
+            this.drawPlayer()
     }
     drawCursor() {
         this.ctx.beginPath()
@@ -97,8 +102,6 @@ class CustomCursor {
         this.ctx.fill()
         this.ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
-
-
     drawNextProj() {
         this.ctx.translate(this.targetPos[0], this.targetPos[1])
         let aspect = this.arrowImg.height / this.arrowImg.width
@@ -108,6 +111,19 @@ class CustomCursor {
         this.ctx.setTransform(1, 0, 0, 1, 0, 0);
 
     }
+    drawPlayer() {
+        console.log('hey')
+        this.ctx.translate(this.targetPos[0], this.targetPos[1])
+        let aspect = this.playImg.height / this.playImg.width
+        let w = 50 * this.dpi
+        this.ctx.scale(this.cursParameters.playImgScale, this.cursParameters.playImgScale)
+        this.ctx.arc(0, 0, this.cursParameters.playerBgRad, 0, Math.PI * 2)
+        this.ctx.fillStyle = "#E5E3DC"
+        this.ctx.fill()
+        this.ctx.drawImage(this.playImg, -w / 2, -w / 2 * aspect, w, w * aspect)
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
     aIn() {
         TweenLite.to(this.cursParameters, this.cursParameters.sliderInTime, {
             circleSize: 0,
@@ -129,13 +145,28 @@ class CustomCursor {
         })
 
     }
-
     nextProjOut() {
         TweenLite.to(this.cursParameters, this.cursParameters.sliderInTime, {
             imgArrowScale: 0,
             circleSize: 26 * this.dpi
         })
     }
+    vidPlayerIn() {
+        TweenLite.to(this.cursParameters, this.cursParameters.sliderInTime, {
+            playImgScale: 1,
+            circleSize: 0 * this.dpi
+
+        })
+
+    }
+
+    vidPlayerOut() {
+        TweenLite.to(this.cursParameters, this.cursParameters.sliderInTime, {
+            playImgScale: 0,
+            circleSize: 26 * this.dpi
+        })
+    }
+
 
     mouseMove(e) {
         this.cursor[0] = e.clientX * this.dpi
@@ -160,6 +191,8 @@ class CustomCursor {
         this.nextProjIn = this.nextProjIn.bind(this)
         this.nextProjOut = this.nextProjOut.bind(this)
         this.drawNextProj = this.drawNextProj.bind(this)
+        this.vidPlayerIn = this.vidPlayerIn.bind(this)
+        this.vidPlayerOut = this.vidPlayerOut.bind(this)
 
         window.addEventListener('resize', this.resizeCanvas)
         window.addEventListener('mousemove', this.mouseMove)
