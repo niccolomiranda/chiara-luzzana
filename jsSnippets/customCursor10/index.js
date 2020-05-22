@@ -112,7 +112,6 @@ class CustomCursor {
 
     }
     drawPlayer() {
-        console.log('hey')
         this.ctx.translate(this.targetPos[0], this.targetPos[1])
         let aspect = this.playImg.height / this.playImg.width
         let w = 50 * this.dpi
@@ -191,7 +190,6 @@ class CustomCursor {
     mouseEntered() {
         TweenLite.to(this.cursParameters, .3, {
             circleSize: 26 * this.dpi,
-            playImgScale: 1
         })
     }
 
