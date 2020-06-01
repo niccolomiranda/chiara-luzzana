@@ -30,6 +30,7 @@ class CameraController {
 const webglHolder = document.querySelector('.webglholder')
 const SLICE_NUMBER = window.localStorage.getItem('SLICE_NUMBER') || 50;
 var simplex = new SimplexNoise();
+let soundActor = 0.2
 
 const matCapsUrls = [
     'https://cdn.jsdelivr.net/gh/niccolomiranda/chiara-luzzana@72fab3c/sphere/matCap0.jpg',
@@ -41,7 +42,7 @@ matCapsUrls.forEach(url => {
 });
 
 let colorPool = [
-    new THREE.Color(0xFFF4F0),
+    new THREE.Color(0xD4CCC7),
 ]
 const GUIObj = {
     SLICE_NUMBER: SLICE_NUMBER,
@@ -57,8 +58,8 @@ const GUIObj = {
     lightAmbient: 0,
     camSpeed: .05,
     camSensitivity: 0.002,
-    highFreqIntensity: 0.003,
-    lowFreqIntensity: 0.003,
+    highFreqIntensity: 0.0017 * 0.01,
+    lowFreqIntensity: 0.008 * 0.1,
     colorChangingFrequency: 0.01,
 }
 
@@ -77,6 +78,7 @@ class ThreeScene {
         this.renderer.setSize(window.innerWidth, window.innerHeight)
         this.renderer.debug.checkShaderErrors = true
         webglHolder.appendChild(this.renderer.domElement)
+        this.renderer.setPixelRatio(window.devicePixelRatio)
 
         this.scene = new THREE.Scene()
 
@@ -153,20 +155,23 @@ class ThreeScene {
 
                 let r = Math.sqrt(2 * sphereRad * (i + sphereRad) - Math.pow(i + sphereRad, 2))
 
-                let cyl = obj.children[0].clone()
-                cyl.material = new THREE.ShaderMaterial({
-                    vertexShader: vertexShader(),
-                    fragmentShader: fragmentShader(),
-                    uniforms: uniforms,
-                    transparent: true
-                })
+                if (r > 0) {
 
-                this.initZScale = cyl.scale.z
-                cyl.position.y = i
-                cyl.scale.x *= r
-                cyl.scale.y *= r
-                cyl.scale.z = this.initZScale * GUIObj.sliceThickness
-                this.sliceGeom.add(cyl)
+                    let cyl = obj.children[0].clone()
+                    cyl.material = new THREE.ShaderMaterial({
+                        vertexShader: vertexShader(),
+                        fragmentShader: fragmentShader(),
+                        uniforms: uniforms,
+                        transparent: true
+                    })
+
+                    this.initZScale = cyl.scale.z
+                    cyl.position.y = i
+                    cyl.scale.x *= r
+                    cyl.scale.y *= r
+                    cyl.scale.z = this.initZScale * GUIObj.sliceThickness
+                    this.sliceGeom.add(cyl)
+                }
                 inc++
             }
 
@@ -174,6 +179,8 @@ class ThreeScene {
             this.sliceGeom.rotation.y = -0.8
             this.scene.add(this.sliceGeom)
         })
+        if (window.isMobile)
+            this.sliceGeom.scale.set(0.8, 0.8, 0.8)
 
 
         window.addEventListener("resize", this.resizeCanvas)
@@ -188,7 +195,7 @@ class ThreeScene {
             n = Math.round(n)
 
             child.scale.z = this.initZScale * GUIObj.sliceThickness
-            child.material.uniforms.u_nSpeed.value += (RAF.dt * 0.0001) * GUIObj.noiseSpeed
+            child.material.uniforms.u_nSpeed.value += (RAF.dt * 0.0001) * GUIObj.noiseSpeed * soundActor
             child.material.uniforms.u_nDet.value = GUIObj.noiseDetail
             child.material.uniforms.u_nRoof.value = GUIObj.noiseRoof
             child.material.uniforms.u_nDepth.value = GUIObj.noiseDepth
@@ -203,8 +210,16 @@ class ThreeScene {
 
             if (soundReactor.audio == undefined)
                 return
-            child.material.uniforms.u_nDet.value += soundReactor.fdata[10] * GUIObj.lowFreqIntensity
-            child.material.uniforms.u_nRoof.value += soundReactor.fdata[500] * GUIObj.highFreqIntensity
+            child.material.uniforms.u_nDet.value = GUIObj.noiseDetail + soundReactor.fdata[500] * GUIObj.highFreqIntensity
+            child.material.uniforms.u_nRoof.value = GUIObj.noiseRoof - soundReactor.fdata[10] * GUIObj.lowFreqIntensity
+            if (soundReactor.audio > 0 && !myAudio.paused) {
+
+                soundActor = 1
+
+            }
+            else {
+                soundActor = 0.2
+            }
         });
 
         if (this.camController != undefined) {
