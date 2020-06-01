@@ -28,7 +28,7 @@ class CameraController {
     }
 }
 const webglHolder = document.querySelector('.webglholder')
-const SLICE_NUMBER = 40;
+const SLICE_NUMBER = 10;
 var simplex = new SimplexNoise();
 let soundActor = 0.2
 
@@ -104,7 +104,7 @@ class ThreeScene {
 
         this.sliceGeom = new THREE.Group()
 
-        fbxLoader.load('https://cdn.jsdelivr.net/gh/niccolomiranda/chiara-luzzana@72fab3c/sphere/slice2.fbx', obj => {
+        fbxLoader.load('https://cdn.jsdelivr.net/gh/niccolomiranda/chiara-luzzana/sphere/slice2.fbx', obj => {
 
             let inc = 0;
             for (let i = -sphereRad; i <= sphereRad; i += sphereRad * 2 / SLICE_NUMBER) {
