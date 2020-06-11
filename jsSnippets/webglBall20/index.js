@@ -78,7 +78,9 @@ class ThreeScene {
         this.renderer.setSize(window.innerWidth, window.innerHeight)
         this.renderer.debug.checkShaderErrors = true
         webglHolder.appendChild(this.renderer.domElement)
-        this.renderer.setPixelRatio(window.devicePixelRatio)
+
+        if (window.isMobile)
+            this.renderer.setPixelRatio(window.devicePixelRatio)
 
         this.scene = new THREE.Scene()
 
